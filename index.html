@@ -19,17 +19,16 @@
 
         .container {
             text-align: center;
-            background: rgba(255, 255, 255, 0.9);
-            padding: 2rem;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 2.5rem;
             width: 85%;
             max-width: 400px;
             border-radius: 40px;
-            box-shadow: 0 15px 35px rgba(255, 182, 193, 0.4);
+            box-shadow: 0 15px 35px rgba(255, 182, 193, 0.6);
             border: 4px solid #ffb6c1;
-            transition: all 0.3s ease;
         }
 
-        h1 { color: #ff4d6d; font-size: 1.8rem; margin: 1rem 0; }
+        h1 { color: #ff4d6d; font-size: 1.8rem; margin: 1.5rem 0; }
 
         .btn-group {
             display: flex;
@@ -40,21 +39,22 @@
         }
 
         button {
-            padding: 15px 30px;
-            font-size: 1.2rem;
+            padding: 15px 35px;
+            font-size: 1.3rem;
             border: none;
             border-radius: 50px;
             cursor: pointer;
             font-weight: bold;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
 
         #yesBtn { background-color: #ff4d6d; color: white; }
-        #noBtn { background-color: #ffb3c1; color: white; position: relative; z-index: 10; }
+        #noBtn { background-color: #ffb3c1; color: white; position: relative; z-index: 100; }
 
-        .main-gif { 
+        .cat-gif { 
             width: 100%; 
             max-width: 250px;
-            border-radius: 20px; 
+            border-radius: 15px; 
         }
     </style>
 </head>
@@ -65,7 +65,7 @@
     </audio>
 
     <div class="container" id="content">
-        <img src="https://share.google/IcDE2kIiLeidlHm1s" class="main-gif" alt="Cute GIF">
+        <img src="https://media.tenor.com/_09v4ZEZP8cAAAAM/angry-cat-sassy-cat.gif" class="cat-gif" alt="Sassy Cat">
         <h1>Will you be my Valentine? 🎀</h1>
         
         <div class="btn-group">
@@ -80,7 +80,7 @@
 
         function startMusic() {
             if (!musicStarted) {
-                music.play().catch(() => console.log("Music wait for interaction"));
+                music.play().catch(() => {});
                 musicStarted = true;
             }
         }
@@ -92,9 +92,10 @@
             const noBtn = document.getElementById('noBtn');
             noBtn.style.position = 'fixed';
             
-            // Keeps button within visible screen bounds
-            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
-            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+            // Ensures the button doesn't fly off-screen
+            const padding = 20;
+            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth - padding);
+            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight - padding);
 
             noBtn.style.left = `${x}px`;
             noBtn.style.top = `${y}px`;
@@ -103,10 +104,10 @@
         function celebrate() {
             startMusic();
             const container = document.getElementById('content');
+            // Swapping the angry cat for a happy one on success
             container.innerHTML = `
-                <img src="https://share.google/IcDE2kIiLeidlHm1s" class="main-gif">
-                <h1>I KNEW YOU'D SAY YES! 🎉💖</h1>
-                <p style="color: #ff4d6d;">Best Valentine's ever!</p>
+                <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHpueGZ3bmZqZzRyeHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4JnB0PWEmZXA9djFfaW50ZXJuYWxfZ2lmX2J5X2lkJmN0PXM/KzM1lAfJpx3o3b3xl2/giphy.gif" class="cat-gif">
+                <h1>YAY! BEST DAY EVER! 🎉💖</h1>
             `;
             const noBtn = document.getElementById('noBtn');
             if(noBtn) noBtn.remove();
